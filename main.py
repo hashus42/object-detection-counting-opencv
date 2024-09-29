@@ -10,6 +10,7 @@ line_height = 200
 matches = []
 vehicles = 0
 
+
 def get_centrolid(x, y, w, h):
     x1 = int(w / 2)
     y1 = int(h / 2)
@@ -17,7 +18,8 @@ def get_centrolid(x, y, w, h):
     cy = y + y1
     return cx, cy
 
-cap = cv2.VideoCapture("output_conveyor_belt-2.mp4")
+
+cap = cv2.VideoCapture("data/output_conveyor_belt-2.mp4")
 cap.set(3, 1920)
 cap.set(4, 1080)
 
@@ -36,7 +38,7 @@ frame_height, frame_width = frame1.shape[:2]
 
 # Define codec and create VideoWriter object
 fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Using XVID codec
-out = cv2.VideoWriter('output_video.avi', fourcc, 20.0, (frame_width, frame_height))
+out = cv2.VideoWriter('data/output_video.avi', fourcc, 20.0, (frame_width, frame_height))
 
 # Initialize variables for FPS calculation
 time_deltas = []
@@ -99,6 +101,8 @@ while ret:
                 (0, 170, 0), 2)
     cv2.putText(frame1, f"FPS: {round(fps, 2)}", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 70, 0), 2)
 
+    # cv2.namedWindow("Vehicle Detection", cv2.WINDOW_NORMAL)
+    # cv2.moveWindow("Vehicle Detection", 1920 - frame1.shape[1], 1080 - frame1.shape[0])
     cv2.imshow("Vehicle Detection", frame1)
     out.write(frame1)  # Write the frame to the output video
 
