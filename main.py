@@ -104,9 +104,10 @@ while ret:
     # cv2.namedWindow("Vehicle Detection", cv2.WINDOW_NORMAL)
     # cv2.moveWindow("Vehicle Detection", 1920 - frame1.shape[1], 1080 - frame1.shape[0])
     cv2.imshow("Vehicle Detection", frame1)
-    out.write(frame1)  # Write the frame to the output video
+    # out.write(frame1)  # Write the frame to the output video
 
     # Resize for display
+    blur = imutils.resize(blur, width=300, height=300)
     th = imutils.resize(th, width=300, height=200)
     dilated = imutils.resize(dilated, width=300, height=200)
     closing = imutils.resize(closing, width=300, height=200)
@@ -120,9 +121,21 @@ while ret:
 
     cv2.imshow("Closing", closing)
     cv2.moveWindow("Closing", 0, 1080 - 200)
+
+    cv2.imshow("Blur", blur)
+    cv2.moveWindow("Blur", 1920 - 300, 1080 - 200)
+
     cv2.waitKey(30)
-    if cv2.waitKey(1) == 27:
+    key = cv2.waitKey(1)
+    if key == 27 or key == ord('q'):
         break
+    elif cv2.waitKey(1) == ord(' '):
+        k = cv2.waitKey(1)
+        while True:
+            if k == ord(' '):
+                break
+            elif k == 27 or k == ord('q'):
+                break
     frame1 = frame2
     ret, frame2 = cap.read()
 
